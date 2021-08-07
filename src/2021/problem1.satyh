@@ -1,10 +1,141 @@
+@require: azmath/azmath
+@require: base/list-ext
+@require: zrbase/zlist0
 @import: ../../packages/common
 @import: common
+
+let-math \H = ${\hat{H}}
+let-math \h-power = ${\frac{i\H\p{t-t_0}}{\hbar}}
+
+let-math \sx = ${\hat{\sigma}_x}
+let-math \sy = ${\hat{\sigma}_y}
+let-math \sz = ${\hat{\sigma}_z}
+
+let-math \th2 = ${\frac{\theta}{2}}
+
+let-math \dmat x =
+  open List in
+  let n = length x in
+  let zeros = repeat n ${0} in
+  let a = x |> map (fun x -> [x]) |> intersperse zeros |> concat in
+    ${\pmatrix!(n)!(a)}
 
 let-block +problem1 = '<
   +problem {1}
 
   +enumerate {
-    * 
+    * 演算子 ${\hat{A}} に対し、指数関数を
+      \gather(${
+      | \app{\exp}{\hat{A}} := \sum_{n=0}^\infty \frac{\hat{A}^n}{n\!}
+      |});
+      で定義する。このとき、
+      \gather(${
+      | \ket{\app{\psi}{t}} = \app{\exp}{-\h-power} \ket{\psi_0}
+        \label!(`11psi`)
+      |});
+      であれば、${\ket{\app{\psi}{t_0}} = \ket{\psi_0}} であり、
+      さらに ${\H} が ${t} に依存しないので
+      \align(${
+      | i\hbar \dv{}{t} \ket{\app{\psi}{t}}
+        |= i\hbar \dv{}{t} \app{\exp}{-\h-power} \ket{\psi_0}
+      | |= i\hbar \cdot \p{-\frac{i\H}{\hbar}} \app{\exp}{-\h-power} \ket{\psi_0}
+      | |= \H \ket{\app{\psi}{t}}.
+      |});
+      したがって、${\app{\hat{U}}{t-t_0} = \answer{\app{\exp}{-i\H\p{t-t_0}/\hbar}}}.
+
+    * \align(${
+      | \hat{U} \hat{U}^\dagger
+        |= \pb{ \sum_{n=0}^\infty \frac{1}{n\!} \p{ -\h-power }^n }
+            \pb{ \sum_{m=0}^\infty \frac{1}{m\!} \p{ \h-power }^m }
+      | |= \sum_{k=0}^\infty k\! \sum_{l=0}^\infty
+              \underbrace{ \frac{k\!}{l\! \p{k-l}\!} \p{-i}^l i^{k-l} }_{= \p{-i + i}^k = \delta_{k0}}
+              \p{\frac{\H\p{t-t_0}}{\hbar}}^k
+      | |= \hat{I}.
+      |});
+      したがって、${\app{\hat{U}}{t-t_0}} はユニタリである。
+
+    * \align(${
+      | \ip{\app{\psi}{t}}{\app{\psi}{t}}
+        |= \mel{\psi_0}{\app{\hat{U}^\dagger}{t-t_0} \app{\hat{U}}{t-t_0}}{\psi_0}
+      | |= \mel{\psi_0}{\hat{I}}{\psi_0}
+      | |= \ip{\psi_0}{\psi_0}
+      |});
+      より、この値は時間に依存しない。
+
+    * \gather(${
+      | \app{\hat{U}}{\tau}
+        = \app{\exp}{-\frac{iat}{\hbar} \mat2{|1|0|0|-1|} }
+        = \answer{ \mat2{|\app{\exp}{-\frac{iat}{\hbar}}|0|0|\app{\exp}{\frac{iat}{\hbar}}|} }.
+      |});
+
+    * ${\hat{H} = \answer{\mat2{|0|0|0|-\frac{\phi\hbar}{\tau}|}}} とすれば、
+      ${\app{\hat{U}}{\tau} = \mat2{|1|0|0|e^{i\phi}|} = \hat{U}_\phi}。
+
+    * 正則行列 ${P} と対角行列 ${D} が ${\H = PDP^{-1}} をみたすとき、
+      \gather(${
+      | \app{\exp}{-\frac{i\H\tau}{\hbar}} = P\app{\exp}{-\frac{iDt}{\hbar}} P^{-1} = \sx
+        \label!(`16eq`)
+      |});
+      したがって、 ${P^{-1} \sx P = \app{\exp}{-\frac{iDt}{\hbar}}} は対角行列。
+      いま、
+      \alignat(2)(${
+      | P |:= \frac{1}{\sqrt{2}} \mat2{|1|1|1|-1|},
+      | D' |:= \mat2{|1|0|0|-1|}
+      |});
+      は ${PD'P^{-1} = \sx} を満たすので、
+      \gather(${
+      | D = \mat2{|0|0|0|\frac{\pi\hbar}{\tau}|}
+      |});
+      とすれれば\eqref(`16eq`);が満たされる。したがって、
+      \gather(${
+      | \hat{H} = PDP^{-1} = \answer{ \frac{\pi\hbar}{2\tau} \mat2{|1|-1|-1|1|} }
+      |});
+      は${\app{\hat{U}}{\tau} = \hat{U}_\mathrm{NOT}}を与える。
+
+    * \gather(${
+      | \hat{H}
+        = \mat2{
+            | b + a \cos\theta | a e^{-i\phi} \sin\theta
+            | a e^{i\phi} \sin\theta | b - a \cos\theta
+            |}
+        = P^{-1}DP,
+      |});
+      \alignat(2)(${
+      | P |:= \mat2{|\cos\th2 | -e^{i\phi} \sin\th2 | e^{i\phi} \sin\th2 | \cos\th2|},
+      | D |:= \mat2{|b+a|0|0|b-a|}
+      |});
+      したがって、${\alpha_\pm := \app{\exp}{-\frac{i\tau}{\hbar}\p{b\pm a}}} を用いて
+      \align(${
+      | \app{\hat{U}}{\tau}
+        |= \app{\exp}{-\frac{i\H\tau}{\hbar}}
+      | |= P^{-1} \app{\exp}{-\frac{iD\tau}{\hbar}} P
+      | |= \mat2{| \alpha_+ \cos^2\th2 + \alpha_- \sin^2\th2
+                 | \p{e^{-i\phi} \alpha_+ - e^{i\phi} \alpha_-} \sin\th2 \cos\th2
+                 | \p{e^{i\phi} \alpha_+ - e^{-i\phi} \alpha_-} \sin\th2 \cos\th2
+                 | \alpha_+ \sin^2\th2 + \alpha_- \cos^2\th2
+                 |}.
+          \label!(`18eq`)
+      |});
+
+    * \eqref(`18eq`); で ${a = \frac{\pi\hbar}{2\tau}, b = 0, \theta = \frac{\pi}{4}, \phi = 0}
+      とすれば、${\app{\hat{U}}{\tau} = \hat{U}_\mathrm{H}} となる。したがって、
+      \gather(${
+      | \hat{H} = \answer{ \frac{\pi\hbar}{2\sqrt{2}\tau} \mat2{|1|1|1|-1|} }
+      |});
+      は条件を満たす。
+
+    * ${\hat{H} = \answer{\dmat{|0|0|0|-\frac{\phi\hbar}{\tau}|}}} とすれば、
+      ${\app{\hat{U}}{\tau} = \dmat{|1|1|1|e^{i\phi}|} = \hat{U}_{\mathrm{C}\text!{-}\phi}}。
+
+    * 問題 [6] より、${\alpha = \frac{\pi\hbar}{2\tau}} として
+      \gather(${
+      | \hat{H} = \answer{ \pmatrix!(4){
+          | 1 | 0 | 0 | 0
+          | 0 | 1 | 0 | 0
+          | 0 | 0 | \alpha | -\alpha
+          | 0 | 0 | -\alpha | \alpha
+          |} }
+      |});
+      は条件を満たす。
   }
 >
