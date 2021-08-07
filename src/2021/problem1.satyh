@@ -1,0 +1,10 @@
+@import: ../../packages/common
+@import: common
+
+let-block +problem1 = '<
+  +problem {1}
+
+  +enumerate {
+    * 
+  }
+>

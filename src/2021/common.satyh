@@ -1,0 +1,7 @@
+@require: enumitem/enumitem
+
+let-block +enumerate x = '<
+  +enumerate?:(
+    Enumitem.(change-by-depth [bracket-arabic])
+  )(x);
+>

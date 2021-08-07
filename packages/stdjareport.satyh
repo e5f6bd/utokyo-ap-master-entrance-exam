@@ -55,6 +55,7 @@ module StdJaReport : sig
   direct \dfn : [inline-text] inline-cmd
   direct \footnote : [inline-text] inline-cmd
 
+  val make-section-title : context -> context
 end = struct
 
 %  type toc-element =
