@@ -26,11 +26,7 @@ module StdJaReport : sig
 
   val default-config : config
 
-  val document : 'a -> config ?-> block-text -> document
-    constraint 'a :: (|
-      title : inline-text;
-      author : inline-text;
-    |)
+  val document : config ?-> block-text -> document
 
   val font-latin-roman  : string * float * float
   val font-latin-bold   : string * float * float
@@ -256,10 +252,12 @@ end = struct
     |)
 
 
-  let document record ?:configopt inner =
-    % -- mandatory designations --
-    let title = record#title in
-    let author = record#author in
+  let document ?:configopt inner =
+    % % -- mandatory designations --
+    % let title = record#title in
+    % let author = record#author in
+    let title = {} in
+    let author = {} in
 
     % -- optional designations --
     let config = Option.from default-config configopt in
@@ -281,21 +279,22 @@ end = struct
 
     % -- title --
     let bb-title =
-      let bb-title-main =
-        let ctx =
-          ctx-doc |> set-font-size font-size-title
-        in
-          line-break false false ctx
-            (inline-fil ++ read-inline ctx title ++ inline-fil)
-      in
-      let bb-author =
-        let ctx =
-          ctx-doc |> set-font-size font-size-author
-        in
-          line-break false false ctx
-            (inline-fil ++ read-inline ctx author ++ inline-fil)
-      in
-        bb-title-main +++ bb-author
+      % let bb-title-main =
+      %   let ctx =
+      %     ctx-doc |> set-font-size font-size-title
+      %   in
+      %     line-break false false ctx
+      %       (inline-fil ++ read-inline ctx title ++ inline-fil)
+      % in
+      % let bb-author =
+      %   let ctx =
+      %     ctx-doc |> set-font-size font-size-author
+      %   in
+      %     line-break false false ctx
+      %       (inline-fil ++ read-inline ctx author ++ inline-fil)
+      % in
+      %   bb-title-main +++ bb-author
+      block-nil
     in
 
     % -- main --
