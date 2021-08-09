@@ -1,6 +1,8 @@
 @import: ../../packages/stdjareport
 @import: problem1
+@import: problem2
 
 document '<
   +problem1;
+  +problem2;
 >

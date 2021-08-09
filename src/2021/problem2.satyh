@@ -1,0 +1,114 @@
+@require: base/typeset/base
+@import: ../../packages/common
+
+let-math \quad = ${\math-skip!(1cm)}
+
+let-block +problem2 = '<
+  +problem{2}
+
+  +enumerate {
+    * \embed(
+        let-math \M = ${\mathrm{M}} in
+        let-math \L = ${\mathrm{L}} in
+        let-math \T = ${\mathrm{T}} in
+      {
+        ${\rho, \Delta x_i, \pdv?:{2}{}{t}, \bm{u}, \bm{F}} はそれぞれ
+        ${\pB{\M/\L^3}, \pB{\L}, \pB{\T^{-2}}, \pB{\L}, \pB{\M\L\T^{-2}/\L^3}} の次元をもつので、
+        \align(${
+        | \pB{\text!{左辺}}
+          |= \pB{\M/\L^3} \cdot \pB{\L}^3 \cdot \pB{\T^{-2}} \pB{\L}
+           = \pB{\M\L\T^{-2}},
+        | \pB{\text!{右辺}}
+          |= \pB{\M\L\T^{-2}/\L^3} \cdot \pB{\L}^3
+           = \pB{\M\L\T^{-2}}
+        |});
+        であり、両辺の次元は一致する。
+      });
+
+    * ${\p{x_1, x_2, x_3}} を中心に含む体積素を A、
+      ${\p{x_1, x_2, x_3 + \Delta x_3}} を中心に含む体積素を B と表記する。
+      B において、${\bm{x}''} を含む面素に A が及ぼす単位面積あたりの力の大きさは
+      ${ \app{\bm{p}^\p{3}}{\bm{x}'', t}} であるから、
+      A において、${\bm{x}''} を含む面素に B が及ぼす単位面積あたりの力の大きさは
+      ${-\app{\bm{p}^\p{3}}{\bm{x}'', t}} である。
+
+    * ${\bm{e}_i} を ${x_i} 軸方向の単位ベクトルとする。また、引数 ${t} を省略する。
+      力の合成を考えれば、
+      \align(${
+      | | \app{\bm{F}_1}{\bm{x}} \Delta x_1 \Delta x_2 \Delta x_3
+      | |=
+          \app{p_1^\p{1}}{\bm{x} + \bm{e}_1 \Delta x_1/2} \Delta x_2 \Delta x_3
+          -
+          \app{p_1^\p{1}}{\bm{x} - \bm{e}_1 \Delta x_1/2} \Delta x_2 \Delta x_3
+          \tbc
+      | |\quad
+          +
+          \app{p_1^\p{2}}{\bm{x} + \bm{e}_2 \Delta x_2/2} \Delta x_3 \Delta x_1
+          -
+          \app{p_1^\p{2}}{\bm{x} - \bm{e}_2 \Delta x_2/2} \Delta x_3 \Delta x_1
+          \tbc
+      | |\quad
+          +
+          \app{p_1^\p{3}}{\bm{x} + \bm{e}_3 \Delta x_3/2} \Delta x_1 \Delta x_2
+          -
+          \app{p_1^\p{3}}{\bm{x} - \bm{e}_3 \Delta x_3/2} \Delta x_1 \Delta x_2
+          \label!(`23f`)
+      |});
+      \align(${
+      | \therefore \app{\bm{F}_1}{\bm{x}}
+        |= \sum_k \frac{
+              \app{p_1^\p{k}}{\bm{x} + \bm{e}_k \Delta x_k/2}
+              -
+              \app{p_1^\p{k}}{\bm{x} - \bm{e}_k \Delta x_k/2}
+            }{\Delta x_k}
+      | |\simeq \sum_k \pdv{\app{p_1^\p{k}}{\bm{x}}}{x_k}.
+      |});
+
+    * \peqref{1}、問題[3]の結果の式、および\peqref{2}から、
+      \align(${
+      | \p{ \rho \pdv?:{2}{\bm{u}}{t} }_j
+        |= \bm{F}_j = \sum_k \pdv{p_j^\p{k}}{x_k}
+      | |= \sum_k \pdv{}{x_k} \sum_{m, n} \frac{1}{2}
+              \p{ \lambda \p{\delta_{jk} \delta_{mn}}
+                    + \mu \p{\delta_{jm} \delta_{kn} + \delta_{jn} \delta_{km}} }
+              \p{ \pdv{u_m}{x_n} + \pdv{u_n}{x_m} }
+      | |= \frac{1}{2} \sum_{k,m,n}
+              \genparen!(AZMathParens.round-bracket-l)!(AZMathParens.empty-bracket-r){
+                \lambda \delta_{jk} \delta_{mn} \pdv2{u_m}{x_k}{x_n}
+                +
+                \lambda \delta_{jk} \delta_{mn} \pdv2{u_n}{x_k}{x_m}
+              }
+            \tbc
+      | | \quad\quad +
+                \mu \delta_{jm} \delta_{kn} \pdv2{u_m}{x_k}{x_n}
+                +
+                \mu \delta_{jm} \delta_{kn} \pdv2{u_n}{x_k}{x_m}
+            \tbc
+      | | \quad\quad +
+              \genparen!(AZMathParens.empty-bracket-l)!(AZMathParens.round-bracket-r){
+                \mu \delta_{jn} \delta_{km} \pdv2{u_m}{x_k}{x_n}
+                +
+                \mu \delta_{jn} \delta_{km} \pdv2{u_n}{x_k}{x_m}
+              }
+      | |=
+            \frac{\lambda}{2} \sum_m \pdv2{u_m}{x_j}{x_m}
+          + \frac{\lambda}{2} \sum_m \pdv2{u_m}{x_j}{x_m}
+      | |\quad
+          + \frac{\mu}{2} \sum_k \pdv?:{2}{u_j}{x_k}
+          + \frac{\mu}{2} \sum_k \pdv2{u_k}{x_k}{x_j}
+          + \frac{\mu}{2} \sum_k \pdv2{u_k}{x_k}{x_j}
+          + \frac{\mu}{2} \sum_k \pdv?:{2}{u_j}{x_k}
+      | |= \mu \sum_k \pdv?:{2}{u_j}{x_k} + \p{\lambda + \mu} \pdv{}{x_j} \sum_k \pdv{u_k}{x_k}
+      | |= \p{ \mu \nabla^2 \bm{u} + \p{\lambda + \mu} \nabla \p{ \nabla \cdot \bm{u} } }_j.
+      |});
+      したがって、${\mathrm{A} = \lambda + \mu}。
+
+    * ${x_1} 方向に伝播する平面波において、${\app{u_2}{\bm{x}, t} = \app{u_3}{x, t} = 0} だから、
+      \gather(${
+      | \rho \pdv?:{2}{u_1}{t}
+        = \mu \pdv?:{2}{u_1}{x_1} + \p{\lambda + \mu} \pdv?:{2}{u_1}{x_1}
+        = \p{2\lambda + \mu} \pdv?:{2}{u_1}{x_1}.
+      |});
+      よって、位相速度は ${\sqrt{\frac{2\lambda+\mu}{\rho}}}。
+  }
+>
