@@ -4,6 +4,7 @@
 @import: stdjareport
 
 % indirect imports
+@import: enumitem-ext
 @import: math-operators
 @import: math-symbols
 @import: physics
@@ -16,7 +17,7 @@ let-inline ctx \simple-frame it =
 let-inline \answer-i x = {\simple-frame{#x;}}
 let-math \answer x = ${\text!{\answer-i{${#x}}}}
 
-let-math \vec x = ${\pmatrix!(1)!(x)}
+let-math \pvec x = ${\pmatrix!(1)!(x)}
 let-math \mat2 x = ${\pmatrix!(2)!(x)}
 
 let no-pads = (0pt, 0pt, 0pt, 0pt)

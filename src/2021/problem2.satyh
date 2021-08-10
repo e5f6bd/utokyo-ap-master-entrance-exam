@@ -1,7 +1,16 @@
 @require: base/typeset/base
+@require: latexcmds/latexcmds
 @import: ../../packages/common
 
 let-math \quad = ${\math-skip!(1cm)}
+
+let-math \exp-t  = ${\app{\exp}{i\p{\bm{k} _t \cdot \bm{x} - \omega _t t}}}
+let-math \exp-t- = ${\app{\exp}{i\p{\bm{k}'_t \cdot \bm{x} - \omega'_t t}}}
+let-math \exp-l  = ${\app{\exp}{i\p{\bm{k}'_l \cdot \bm{x} - \omega'_l t}}}
+
+let-inline \lin-indep = {${\pb{ \app{\exp}{ax} }_{a\in\mathbb{C}}} の線形独立性}
+
+let-math \uline-m x = ${\text!{\uline{${#x}}}}
 
 let-block +problem2 = '<
   +problem{2}
@@ -93,6 +102,7 @@ let-block +problem2 = '<
       | |=
             \frac{\lambda}{2} \sum_m \pdv2{u_m}{x_j}{x_m}
           + \frac{\lambda}{2} \sum_m \pdv2{u_m}{x_j}{x_m}
+            \tbc
       | |\quad
           + \frac{\mu}{2} \sum_k \pdv?:{2}{u_j}{x_k}
           + \frac{\mu}{2} \sum_k \pdv2{u_k}{x_k}{x_j}
@@ -101,14 +111,147 @@ let-block +problem2 = '<
       | |= \mu \sum_k \pdv?:{2}{u_j}{x_k} + \p{\lambda + \mu} \pdv{}{x_j} \sum_k \pdv{u_k}{x_k}
       | |= \p{ \mu \nabla^2 \bm{u} + \p{\lambda + \mu} \nabla \p{ \nabla \cdot \bm{u} } }_j.
       |});
-      したがって、${\mathrm{A} = \lambda + \mu}。
+      したがって、${\mathrm{A} = \answer{\lambda + \mu}}。
 
-    * ${x_1} 方向に伝播する平面波において、${\app{u_2}{\bm{x}, t} = \app{u_3}{x, t} = 0} だから、
+    * ${x_1} 方向に伝播する縦波平面波において、${\app{u_1}{\bm{x}, t} = 0}、
+      ${\pdv{u_2}{x_2} = \pdv{u_2}{x_3} = \pdv{u_3}{x_2} = \pdv{u_3}{x_3} = 0} だから、
+      \gather(${
+      | \rho \pdv?:{2}{u_2}{t} = \mu \pdv?:{2}{u_2}{x_1}.
+      |});
+      したがって、位相速度は ${\answer{\sqrt{\frac{\mu}{\rho}}}}。
+      \linebreak;
+
+      ${x_1} 方向に伝播する横波平面波において、
+      ${\app{u_2}{\bm{x}, t} = \app{u_3}{\bm{x}, t} = 0} だから、
       \gather(${
       | \rho \pdv?:{2}{u_1}{t}
         = \mu \pdv?:{2}{u_1}{x_1} + \p{\lambda + \mu} \pdv?:{2}{u_1}{x_1}
         = \p{2\lambda + \mu} \pdv?:{2}{u_1}{x_1}.
       |});
-      よって、位相速度は ${\sqrt{\frac{2\lambda+\mu}{\rho}}}。
+      よって、位相速度は ${\answer{\sqrt{\frac{2\lambda+\mu}{\rho}}}}。
+
+    * ${x_3} 方向の変位が ${0} で ${x_3} 方向に等方的であるという条件から、
+      ${x_1}-${x_2} 平面内のみを考える。
+      入射波と反射波がいずれも横波平面波であることから、
+      \alignat(3)(${
+      |  k_t, k'_t |> 0,
+      |  0 \leq \alpha_t, \alpha'_t |< \pi / 2,
+      |  u_t, u'_t |\in \mathbb{C} \setminus \pb{0}
+      |});
+      を用いて
+      \alignat(2)(${
+      | \bm{k}_t |= k_t \pvec{| \sin\alpha_t | \cos\alpha_t |},
+      | \bm{k}'_t |= k'_t \pvec{| \sin\alpha'_t | -\cos\alpha'_t |},
+      | \bm{u}_{t0} |= u_t \pvec{| \cos\alpha_t | -\sin\alpha_t |},
+      | \bm{u}'_{t0} |= u'_t \pvec{| \cos\alpha'_t | \sin\alpha'_t |},
+      |});
+      とおける。いま、境界条件から
+      \align(${
+      | 0
+        |= p_1^\p{2}
+      | |= \mu \p{ \pdv{u_2}{x_1} + \pdv{u_1}{x_2} }
+      | \therefore 0
+        |=
+            -u _t\sin\alpha _t \cdot k _t \sin \alpha _t \cdot \exp-t
+            \tbc
+      | |\quad 
+            +u'_t\sin\alpha'_t \cdot k'_t \sin \alpha'_t \cdot \exp-t-
+            \tbc
+      | |\quad
+            +u _t\cos\alpha _t \cdot k _t \cos \alpha _t \cdot \exp-t
+            \tbc
+      | |\quad
+            +u'_t\cos\alpha'_t \cdot \p{-k'_t \cos \alpha'_t} \cdot \exp-t-
+      | |= u_t k_t \cos 2\alpha_t \cdot \exp-t
+            - u'_t k'_t \cos 2\alpha'_t \cdot \exp-t-
+          \label!(`26eq`)
+      |});
+      である。このとき、
+      \listing{
+        * ${\alpha_t \neq \pi/4} なら、\eqref(`26eq`); から
+          \gather(${
+          | u_t k_t \cos 2\alpha_t = u'_t k'_t \cos 2\alpha'_t \neq 0
+          |});
+          である。したがって、\lin-indep; から
+          \gather(${
+          | k_t \sin \alpha_t = k'_t \sin \alpha'_t,
+            \math-skip!(0.5cm)
+            \omega_t = \omega'_t
+            \label!(`26komega`)
+          |});
+          であり、また [5] で得られた位相速度の条件から
+          \gather(${
+          | \frac{\omega_t}{k_t} = \frac{\omega'_t}{k'_t} = \sqrt{\frac{2\lambda+\mu}{\mu}}
+          |});
+          である。したがって、
+          ${\omega_t = \answer{\omega'_t}}、${k_t = k'_t}、${\alpha_t = \answer{\alpha'_t}} を得る。
+
+        * ${\alpha_t = \pi/4} なら、${p_1^\p{2}} は恒等的に ${0} であるから、
+          ${\alpha'_t, \omega'_t} に関する条件は得られない。
+      }
+
+    * 境界条件から
+      \align(${
+      | 0
+        |= p_2^\p{2}
+      | |= \lambda \pdv{u_1}{x_1} + \p{\lambda + 2\mu} \pdv{u_2}{x_2} + \lambda \pdv{u_3}{x_3}
+      | |= \lambda
+              \genparen!(AZMathParens.curly-bracket-l)!(AZMathParens.empty-bracket-r){
+                u_t \cos \alpha_t \cdot k_t \sin\alpha_t \cdot \exp-t
+              }
+            \tbc
+      | |\quad\quad
+              \genparen!(AZMathParens.empty-bracket-l)!(AZMathParens.curly-bracket-r){
+                +u'_t \cos \alpha'_t \cdot k'_t \sin\alpha'_t \cdot \exp-t-
+              }
+            \tbc
+      | |\quad + \p{\lambda+2\mu}
+              \genparen!(AZMathParens.curly-bracket-l)!(AZMathParens.empty-bracket-r){
+                \p{-u_t \sin \alpha_t} \cdot k_t \cos\alpha_t \cdot \exp-t
+              }
+            \tbc
+      | |\quad\quad\quad\quad
+              \genparen!(AZMathParens.empty-bracket-l)!(AZMathParens.curly-bracket-r){
+                +u'_t \sin \alpha'_t \cdot \p{-k'_t \cos\alpha'_t} \cdot \exp-t-
+              }
+      | |= -\mu u_t k_t \sin 2\alpha_t \cdot \exp-t
+            -\mu u'_t k'_t \sin 2\alpha'_t \cdot \exp-t-.
+          \label!(`27eq`)
+      |});
+      ふたたび ${\alpha_t} によって場合分けをすると、
+      \listing{
+        * ${\alpha_t \neq \pi/4} なら、${-4\mu u_t \sin\alpha_t \cos\alpha_t = 0} なので、
+          ${\alpha_t = 0}。
+
+        * ${\alpha_t = \pi/4} なら、\eqref(`27eq`); は
+          \gather(${
+          | -\mu u_t k_t \cdot \exp-t -\mu u'_t k'_t \cdot \exp-t- = 0
+          |});
+          とかける。${\mu u_t k_t \neq 0} から、\eqref(`26komega`); が従う。
+          したがって ${\alpha_t = \pi/4} も境界条件を満たす。
+      }
+      以上より、${\alpha_t = \answer{ 0, \pi/4 }}。
+
+    * いま、${\bm{u}'_l} が縦波であるという条件から、を用いて
+      ${ k'_l > 0, 0 \leq \alpha'_l, \alpha'_l < \pi / 2, u'_l \in \mathbb{C} \setminus \pb{0} }
+      \alignat(2)(${
+      | \bm{k}'_l |= k'_l \pvec{| \sin\alpha'_l | -\cos\alpha'_l |},
+      | \bm{u}'_{l0} |= u'_l \pvec{| \sin\alpha'_l | -\cos\alpha'_l |}
+      |});
+      と表せる。これを境界条件 ${p_1^\p{2} = 0} に代入すると
+      \align(${
+      | 0 
+        |= \uline-m{u_t k_t \cos 2\alpha_t} \cdot \exp-t \tbc
+      | |\quad + \uline-m{u'_t k'_t \cos 2\alpha'_t} \cdot \exp-t- \tbc
+      | |\quad - \uline-m{u'_l k'_l \sin 2\alpha'_l} \cdot \exp-l,
+          \label!(`28eq`)
+      |});
+      を得る。
+      ここで、${0 < \alpha_t < \pi/4} または ${\pi/4 < \alpha_t < \pi/2} だから、
+      下線部はすべて non-zero である。
+      したがって、\eqref(`26eq`); を
+      ${x_2 = x_3 = t = 0} としたときの ${x_1} の関数として考えれば、
+      \lin-indep;により、
+      ${k_t1 = k'_t1 = k'_l1} であり、特に ${k_t \sin\alpha_t = k'_l \sin \alpha'_l} である。
   }
 >
