@@ -232,8 +232,9 @@ let-block +problem2 = '<
       }
       以上より、${\alpha_t = \answer{ 0, \pi/4 }}。
 
-    * いま、${\bm{u}'_l} が縦波であるという条件から、を用いて
+    * いま、${\bm{u}'_l} が縦波であるという条件から、
       ${ k'_l > 0, 0 \leq \alpha'_l, \alpha'_l < \pi / 2, u'_l \in \mathbb{C} \setminus \pb{0} }
+      を用いて
       \alignat(2)(${
       | \bm{k}'_l |= k'_l \pvec{| \sin\alpha'_l | -\cos\alpha'_l |},
       | \bm{u}'_{l0} |= u'_l \pvec{| \sin\alpha'_l | -\cos\alpha'_l |}
