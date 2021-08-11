@@ -1,13 +1,20 @@
 @require: hdecoset
 @require: vdecoset
+@require: figbox/figbox
 @require: uline/uline
 @import: stdjareport
 
 % indirect imports
+@import: charts
 @import: enumitem-ext
 @import: math-operators
 @import: math-symbols
 @import: physics
+
+let-inline ctx \fig-center fb =
+  let bt = '<+fig-center(fb);> in
+  let ib-block = embed-block-breakable ctx (read-block ctx bt) in
+  inline-fil ++ ib-block ++ omit-skip-after
 
 let-inline ctx \simple-frame it =
   let p = 3pt in

@@ -2,9 +2,11 @@
 @import: problem1
 @import: problem2
 @import: problem3
+@import: problem4
 
 document '<
   +problem1;
   +problem2;
   +problem3;
+  +problem4;
 >

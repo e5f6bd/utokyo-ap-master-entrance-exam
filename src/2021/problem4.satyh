@@ -1,0 +1,136 @@
+@require: simplot/simplot
+@import: ../../packages/common
+
+let-math \e0 = ${\varepsilon_0}
+
+let-math \sin-delay = ${\sin\pB{\omega_0 \p{t - \frac{r}{c}}}}
+let-math \cos-delay = ${\cos\pB{\omega_0 \p{t - \frac{r}{c}}}}
+
+let-block +problem4 = '<
+  +problem{4}
+
+  +enumerate {
+    * \align(${
+      | r_\pm
+        |= \sqrt{x^2 + y^2 + \p{z \mp \frac{l}{2}}^2}
+      | |= r\sqrt{1 \mp \frac{zl}{r^2} + \frac{l^2}{4r^2}}
+      | |\simeq r\sqrt{1 \mp \frac{l}{r} \cos\theta}
+      | |\simeq r\p{ 1 \mp \frac{l}{2r} \cos\theta }.
+      |});
+      \align(${
+      | \therefore
+        \app{\varphi}{\bm{r}}
+        |= \frac{\alpha_0 E_0}{l} \frac{1}{4\pi\e0} \p{ \frac{1}{r_+} - \frac{1}{r_-} }
+      | |\simeq \frac{\alpha_0 E_0}{4\pi\e0 l} \cdot \frac{1}{r} \cdot \frac{l}{r} \cos\theta
+      | |= \frac{\alpha_0 E_0 \cos\theta}{4\pi\e0} \cdot \frac{1}{r^2}.
+      |});
+      したがって、${\mathrm{C} = \answer{0}, \mathrm{D} = \answer{1}}。
+
+    * \align(${
+      | \app{q}{t - \frac{r_\pm}{c}}
+        |= \frac{\alpha_0 E_0}{l} \cos
+              \pB{ \omega_0 \pb{ t - \frac{r}{c} \p{ 1 \mp \frac{l}{2r} \cos\theta } } }
+      | |\simeq
+            \frac{\alpha_0 E_0}{l} \p{
+              \cos-delay \mp \frac{r\omega_0 \cos\theta}{c} \cdot \frac{l}{2r} \sin-delay
+            },
+      |});
+      \align(${
+      | \therefore
+        \app{\varphi}{\bm{r}, t}
+        |\simeq
+            \frac{1}{4\pi\e0} \cdot \frac{\alpha_0 E_0}{l} \cdot \frac{1}{r} \cdot 2 \p{
+              \cos-delay \cdot \frac{l}{2r} \cos\theta
+              -
+              \frac{r\omega_0 \cos\theta}{c} \cdot \frac{l}{2r} \sin-delay
+            }
+      | |= \frac{\alpha_0 E_0 \cos\theta}{4\pi\e0} \p{
+              \cos-delay \cdot \frac{1}{r^2}
+              -
+              \frac{\omega_0}{c} \cdot \frac{1}{r} \sin-delay
+            }.
+      |});
+      したがって、${
+        \mathrm{F} = \answer{-\frac{\omega_0}{c} \sin-delay},
+        \mathrm{G} = \answer{\cos-delay}
+      }。
+
+    * \alignat(3)(${
+      | \bm{e}_r |= \pvec{| \sin\theta \cos\phi | \sin\theta \sin\phi | \cos\theta |},
+      | \bm{e}_\theta |= \pvec{| \cos\theta \cos\phi | \cos\theta \sin\phi | -\sin\theta |},
+      | \bm{e}_\phi |= \pvec{| -\sin\phi | \cos\phi | 0 |}
+      |});
+      だから、${\bm{e}_z = \bm{e}_r \cos\theta - \bm{e}_\theta \sin\theta}。したがって、
+      \align(${
+      | \app{\bm{A}}{\bm{r}, t}
+        |= \frac{1}{4\pi\e0 c^2 r} \dv{\app{p}{t - r/c}}{t} \bm{e}_z
+      | |= \frac{1}{4\pi\e0 c^2 r}
+            \cdot \alpha_0 E_0 \omega_0 \sin-delay
+            \cdot \p{ \bm{e}_r \cos\theta - \bm{e}_\theta \sin\theta }
+      | |= \answer{
+              \frac{\alpha_0 E_0 \omega_0}{4\pi \e0 c^2 r} \sin-delay
+              \p{ \bm{e}_r \cos\theta - \bm{e}_\theta \sin\theta }
+            }.
+      |});
+
+    * \align(${
+      | \nabla \varphi
+        |= \answer{
+              -\frac{\alpha_0 E_0 \omega_0^2 \cos\theta}{4\pi \e0 c^2 r}
+                \cos-delay \cdot \bm{e}_r
+            }.
+      |});
+
+    * \align(${
+      | \bm{E}
+        |= -\nabla\varphi - \pdv{\bm{A}}{t}
+      | |= \frac{\alpha_0 E_0 \omega_0^2 \cos\theta}{4\pi \e0 c^2 r}
+                \cos-delay \cdot \bm{e}_r
+            -\frac{\alpha_0 E_0 \omega_0^2}{4\pi \e0 c^2 r} \cos-delay
+              \p{ \bm{e}_r \cos\theta - \bm{e}_\theta \sin\theta }
+      | |= \answer{
+            \frac{\alpha_0 E_0 \omega_0^2 \sin\theta}{4\pi \e0 c^2 r} \cos-delay \cdot \bm{e}_\theta
+          },
+      | \bm{B}
+        |= \answer{
+            -\frac{\alpha_0 E_0 \omega_0^2 \sin\theta}{4\pi\e0 c^3 r} \cos-delay \cdot \bm{e}_\phi
+          }.
+      |});
+
+    * \align(${
+      | \bm{S}
+        |= \frac{1}{\mu_0} \bm{E} \times \bm{B}
+      | |= \answer{
+              -\frac{\alpha^2 E_0^2 \omega_0^4 \sin^2 \theta}{16\pi^2 c r^2}
+              \cos^2\pB{\omega_0 \p{t - \frac{r}{c}}} \cdot \bm{e}_r
+            }.
+      |});
+      ${\abs{\bm{S}}}の${\theta}および${\phi}依存性はそれぞれ以下の通り。
+      横軸が ${\theta} および ${\phi}、縦軸が ${\abs{\bm{S}}} である。
+
+      \fig-center(
+        let fig f x-max x-max-label =
+          let (x-min, y-min, y-max) = (0., 0., 1.5) in
+          let data =
+            linspace x-min x-max 200
+              |> List.map (fun x -> (x, f x))
+              |> filter-range y-min y-max
+          in
+          Chart.new 100pt 150pt
+            |> Chart.add-plot (Graph.line data [LineGraphStyle.solid Color.red])
+            |> Chart.set-xlim x-min x-max
+            |> Chart.set-ylim y-min y-max
+            |> Chart.add-axis (Axis.new-custom-x [0.; x-max] [{${O}}; x-max-label])
+            |> Chart.add-axis (Axis.new-custom-y [] [])
+            |> Chart.draw
+        in
+        FigBox.(hconcat [
+          fig (fun x -> sin x *. sin x) Float.pi {${\pi}};
+          gap 30pt;
+          fig (fun x -> 1.) 1. {${2\pi}};
+        ])
+      );
+
+    * 
+  }
+>
