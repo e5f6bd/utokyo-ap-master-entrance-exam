@@ -1,0 +1,134 @@
+@import: ../../packages/common
+@require: enumitem/enumitem
+
+let-math \tc = ${T_\mathrm{c}}
+
+let-block +problem3 = '<
+  +problem{3}
+
+  +enumerate {
+    * **  この系の1粒子波動関数の Schrödinger 方程式は
+          \gather(${
+          | \p{ -\frac{\hbar^2}{2m} \nabla^2 + \app{V}{\bm{x}}} \app{\psi}{\bm{x}} = E \app{\psi}{\bm{x}},
+             \tbc
+          | \app{V}{\bm{x}} = \cases{
+            | 0 | \p{ 0 \leq x_1, x_2, x_3 \leq L }
+            | \infty | \p{\text!{otherwise}}
+            |}
+          |});
+          を満たす。これを解けば、非負整数 ${n_1, n_2, n_3} と規格化定数 ${C} を用いて
+          \align(${
+          | \app{\psi}{\bm{x}} |= C \prod_{j=1}^3 \sin \frac{\pi n_i x_i}{L},
+          | E |= \frac{\hbar^2 \pi^2}{2mL^2} \sum_{j=1}^3 n_j^2
+             \label!(`311e`)
+          |});
+          となる。
+          ${\hat{\bm{p}} = -i\hbar \nabla} であるから、
+          運動量は（全成分が非負であると仮定すれば）
+          \gather(${
+          | \frac{\hbar\pi}{L} \p{ n_x, n_y, n_z }
+          |});
+          と表示される。
+          したがって、運動量空間の単位体積あたりの1粒子エネルギー固有状態の個数は
+          ${\answer{\frac{L^3}{\hbar^3 \pi^3}}}。
+
+      **  ${\int_0^\epsilon \app{D}{\varepsilon} \dd{\varepsilon}} は、\eqref(`311e`); より
+          \gather(${
+          | E \leq \epsilon
+             \iff \sqrt{\sum_j n_j^2} \leq \frac{L \sqrt{2m\epsilon}}{\hbar\pi}
+          |});
+          を満たす非負整数の組 ${\p{n_1, n_2, n_3}} の個数と等しい。
+          3次元空間上の格子点の個数を球の体積で近似すれば、
+          \gather(${
+          | \int_0^\epsilon \app{D}{\varepsilon} \dd{\varepsilon}
+            = \frac{4\pi}{3} \p{ \frac{L \sqrt{2m\epsilon}}{\hbar\pi} }^3
+            = \frac{4L^3 \cdot \p{2m}^{3/2}}{3\hbar^3 \pi^2} \epsilon^{3/2},
+          | \therefore
+            \app{D}{\epsilon}
+            = \dv{}{\epsilon} \int_0^\epsilon \app{D}{\varepsilon} \dd{\varepsilon}
+            = \answer{\alpha \epsilon^{1/2}},
+            \math-skip!(0.5cm)
+            \alpha := \frac{2^{5/2} L^3 m^{3/2}}{\hbar^3\pi^2}.
+          |});
+
+      **  ${\mu = 0} のとき ${T = \tc} となる。このとき、
+          \gather(${
+          | N
+             = \int_0^\infty \app{D}{\epsilon} \app{f}{\epsilon} \dd{\epsilon}
+             = \alpha \int_0^\infty \epsilon^{1/2} \frac{\dd{\epsilon}}{\app{\exp}{\epsilon/\tc}-1}
+             = \alpha\tc^{3/2} \frac{\sqrt{\pi}}{2} \app{\zeta}{\frac{3}{2}}.
+          | \therefore \tc
+              = \frac{2^{2/3}}{\alpha^{2/3} \pi^{1/3} \app{\zeta}{3/2}}
+              = \answer{ \frac{\hbar \pi}{2 L^2 m \app{\zeta}{3/2}^{3/2}} }.
+          |});
+
+      **  \gather(${
+          | N - N_0
+             = \alpha \int_0^\infty \epsilon^{1/2} \frac{\dd{\epsilon}}{\app{\exp}{\epsilon/\tc}-1}
+             = \p{\frac{T}{\tc}}^\frac{3}{2} N.
+          | \therefore
+            N_0 = \answer{ \p{ 1 - \p{\frac{T}{\tc}}^{3/2} } N }.
+          |});
+
+      **  2次元系では、エネルギー固有値は非負整数 ${n_1, n_2} を用いて
+          \align(${
+          | E |= \frac{\hbar^2 \pi^2}{2mL^2} \p{ n_1^2 + n_2^2 }
+          |});
+          と表されるので、
+          \gather(${
+          | E \leq \epsilon
+             \iff \sqrt{n_1^2 + n_2^2} \leq \frac{L \sqrt{2m\epsilon}}{\hbar\pi}
+          |});
+          を満たす。[1.2] と同様にエネルギー状態の個数を考えれば、
+          ある定数 ${\alpha'} を用いて
+          \gather(${
+          | \pi \p{ \frac{L \sqrt{2m\epsilon}}{\hbar\pi} }^2 
+            = \alpha'\epsilon
+            = \int_0^\epsilon \app{D}{\varepsilon} \dd{\varepsilon}
+          | \therefore \app{D}{\epsilon} = \alpha'.
+          |});
+          いま、${T} が与えられたときに、${\mu} の満たすべき式は
+          \align(${
+          | N
+            |= \int_0^\infty \app{D}{\epsilon} \app{f}{\epsilon} \dd{\epsilon}
+             = \alpha \int_0^\infty \frac{\dd{\epsilon}}{\app{\exp}{\p{\epsilon - \mu}/T} - 1}
+             = -\frac{\alpha}{T} \app{\log}{1 - \app{\exp}{\frac{\mu}{T}}}
+          |});
+          であるが、右辺は ${\mu\to\infty} で ${\to 0}、${\mu\to -0} で ${\to\infty} であるので、
+          任意の ${T} に対して ${\mu} の解が存在する。
+          したがって、Bose-Einstein 凝縮は起こらない。
+
+    * **  ${\hbar\omega\p{n_x + n_y} \leq \epsilon} を満たす非負整数の組 ${\p{n_x, n_y}} の個数を考えて、
+          \gather(${
+          | \int_0^\epsilon \app{D}{\varepsilon} \dd{\varepsilon}
+            = \frac{1}{2} \p{ \floor{\frac{\epsilon}{\hbar\omega}} + 1}
+              \p{ \floor{\frac{\epsilon}{\hbar\omega}} + 1}
+              \simeq \frac{1}{2} \p{\frac{\epsilon}{\hbar\omega}}^2,
+          | \therefore \app{D}{\epsilon} \simeq \answer{ \frac{\epsilon}{\hbar^2\omega^2} }.
+          |});
+
+      **  ${T = \tc} のとき、${\mu = 0} であるから、
+          \gather(${
+          | N
+            = \int_0^\infty \app{f}{\epsilon} \app{D}{\epsilon} \dd{\epsilon}
+              = \frac{1}{\hbar^2\omega^2}
+                  \int_0^\infty \frac{\epsilon}{\app{\exp}{\epsilon/\tc -1}} \dd{\epsilon}
+              = \frac{\tc^2 \pi^2}{6\hbar^2\omega^2},
+          | \therefore \tc = \answer{\frac{\hbar\omega}{\pi} \sqrt{6N}}.
+          |});
+
+      **  ${\tc} が発散しないためには、${\omega \propto \frac{1}{\sqrt{N}}} とすべきである。
+          古典系 ${m\ddot{x} = -kx} ${\iff} ${x = A e^{\pm i\omega t}}, ${\omega = \sqrt{\frac{k}{m}}}
+          とのアナロジーで考えれば、
+          ${\omega \propto \sqrt{\frac{V_0}{L_0^2}} \propto \frac{1}{L_0}} であるので、
+          ${L_0 \propto \sqrt{N}} が満たされるべきである。
+
+      **  \gather(${
+          | N - N_0
+             = \alpha \int_0^\infty \epsilon^{1/2} \frac{\dd{\epsilon}}{\app{\exp}{\epsilon/\tc}-1}
+             = \frac{T^2}{\tc^2} N.
+          | \therefore
+            N_0 = \answer{ \p{ 1 - \frac{T^2}{\tc^2} } N }.
+          |});
+  }
+>

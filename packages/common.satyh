@@ -44,3 +44,6 @@ let-block ctx +problem a =
 
 let-inline \peqref x = {問題文中式(#x;)}
 let-inline \eqref x = {式 (\ref(`eq:` ^ x);)}
+
+% Resolve name collision
+let-math \underbrace x = ${\AZMathParens.underbrace{#x}}
