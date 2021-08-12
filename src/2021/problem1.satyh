@@ -130,8 +130,8 @@ let-block +problem1 = '<
     * 問題 [6] より、${\alpha = \frac{\pi\hbar}{2\tau}} として
       \gather(${
       | \hat{H} = \answer{ \pmatrix!(4){
-          | 1 | 0 | 0 | 0
-          | 0 | 1 | 0 | 0
+          | 0 | 0 | 0 | 0
+          | 0 | 0 | 0 | 0
           | 0 | 0 | \alpha | -\alpha
           | 0 | 0 | -\alpha | \alpha
           |} }
