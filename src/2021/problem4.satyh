@@ -101,7 +101,7 @@ let-block +problem4 = '<
       | \bm{S}
         |= \frac{1}{\mu_0} \bm{E} \times \bm{B}
       | |= \answer{
-              -\frac{\alpha^2 E_0^2 \omega_0^4 \sin^2 \theta}{16\pi^2 c r^2}
+              -\frac{\mu_0 \alpha_0^2 E_0^2 \omega_0^4 \sin^2 \theta}{16\pi^2 c r^2}
               \cos^2\pB{\omega_0 \p{t - \frac{r}{c}}} \cdot \bm{e}_r
             }.
       |});
