@@ -1,0 +1,161 @@
+@import: ../../packages/common
+
+let-math \e0 = ${\varepsilon_0}
+let-math \eps = ${\varepsilon}
+
+let-block +physics1-problem2 = '<
+  +problem{2}
+
+  +enumerate {
+    * **  対称性より、電場はすべて動径方向である。
+          ガウスの法則 ${\epsilon \nabla \times \mathbb{E} = \rho}
+          を半径 ${r} (${a < r < b}) の空間に適用すると ${\e0 \cdot 4\pi r^2 E = Q_0} になること
+          などから、
+          \gather(${
+          | \app{E}{r} = \answer{ \cases{
+            | \frac{Q_0}{4\pi\e0 r^2} | \p{a < r < b}\ 
+            | 0 | \p{\text!{otherwise}}.
+            |} }
+          |});
+          また、電位 ${\phi} はこれを ${r} 方向に積分することによって
+          \gather(${
+          | \app{\phi}{r} = \answer{ \cases{
+            | \frac{Q_0}{4\pi \e0} \p{\frac{1}{a} - \frac{1}{b}} | \p{0 \leq r < a}
+            | \frac{Q_0}{4\pi \e0} \p{\frac{1}{r} - \frac{1}{b}} | \p{a \leq r < b}
+            | 0 | \p{b \leq r}
+            |} }
+          |});
+          と得られる。
+
+      **  求める静電容量 ${C} は、
+          \gather(${
+          | C 
+            = \frac{Q_0}{\frac{Q_0}{4\pi \e0} \p{ \frac{1}{a} - \frac{1}{b} } }
+            = \answer{ 4\pi\e0 \frac{ab}{b-a} }.
+            \label!(`1212c`)
+          |});
+
+      **  静電容量は\eqref(`1212c`);の${\e0}を${\e0+\eps}に置き換えたものなので、
+          求める静電エネルギーは
+          \gather(${
+          | \frac{1}{2} \frac{Q_0^2}{4\pi\p{\e0+\eps}\frac{ab}{b-a}}
+            = \answer{ \frac{Q_0^2}{8\pi\p{\e0+\eps}}\p{ \frac{1}{a} - \frac{1}{b} } }.
+            \label!(`1213j`)
+          |});
+
+      **  誘電率 ${\eps} の媒質を施した後の静電容量 ${\tilde{C}} は
+          \align(${
+          | \tilde{C} 
+            |= \frac{1}{
+                \frac{1}{4\pi\e0} \p{\frac{1}{a} - \frac{1}{b-d}}
+                + \frac{1}{4\pi\p{\e0+\eps}} \p{\frac{1}{b-d} - \frac{1}{b}}
+              }
+          | |= C + \answer{ 
+                4\pi\e0 \frac{ab}{b-a} \cdot \frac{\eps}{\e0+\eps}
+              } d + \app{O}{d^2}.
+          % | |\simeq \frac{4\pi}{
+          %       \frac{1}{\e0 a} - \frac{1}{\p{\e0 + \eps} b}
+          %       + \frac{\eps}{\e0\p{\e0 + \eps} b} \p{1 + \frac{d}{b}}
+          %     }
+          % | \dv{\tilde{C}}{d}
+          %   |= -\frac{
+          %         -\frac{1}{4\pi\e0} \frac{1}{\p{b-d}^2}
+          %         +\frac{1}{4\pi\p{\e0 + \eps}} \frac{1}{\p{b-d}^2}
+          %       }{
+          %         \pB{
+          %           \frac{1}{4\pi\e0} \p{\frac{1}{a} - \frac{1}{b-d}}
+          %           + \frac{1}{4\pi\p{\e0+\eps}} \p{\frac{1}{b-d} - \frac{1}{b}}
+          %         }^2
+          %       }
+          |});
+
+
+    * **  導体球殻 A と B の間の電気抵抗の大きさ ${R} は、
+          \gather(${
+          | R = \int_a^b \frac{1}{\sigma} \frac{1}{4\pi r^2} \dd{r}
+              = \answer{ \frac{1}{4\pi\sigma} \p{\frac{1}{a} - \frac{1}{b}} }.
+          |});
+          また、これらの球殻の間を流れる電流の大きさ ${I} は、
+          \gather(${
+          | I = \frac{1}{R} \cdot \frac{Q_0}{4\pi\p{\e0+\eps}} \p{\frac{1}{a}-\frac{1}{b}}
+              = \answer{ \frac{\sigma Q_0}{\e0 + \eps} }.
+          |});
+          単位時間あたりに発生するジュール熱は、
+          \gather(${
+          | I^2 R = \answer{ \frac{\sigma Q_0^2}{4\pi\p{\e0+\eps}} \p{\frac{1}{a} - \frac{1}{b}} }.
+          |});
+
+
+      **  2球殻間の電位差から、${\app{Q}{t}} は微分方程式
+          \gather(${
+          | RI = R \dv{Q}{t} = -\frac{Q}{C}
+          |});
+          に従う。これを解けば、
+          \gather(${
+          | \app{Q}{t}
+              = Q_0 \app{\exp}{-\frac{t}{RC}}
+              = \answer{
+                  Q_0 \app{\exp}{-\frac{\sigma}{\e0+\eps} t}
+                }.
+          |});
+          また、これにより発生するジュール熱は
+          \gather(${
+          | \app{W}{t}
+            = \int_0^t I^2 R \dd{t}
+            = \answer{
+                \frac{Q_0^2}{8\pi\p{\e0+\eps}} \p{\frac{1}{a} - \frac{1}{b}}
+                \pB{ 1 - \app{\exp}{-\frac{2\sigma}{\e0+\eps} t} }
+              }
+          |});
+
+      **  ${\app{W}{t}} は ${t\to\infty} で \eqref(`1213j`); の静電エネルギーに一致する。
+          すなわち、この過程において蓄積されたすべての静電エネルギーがジュール熱に変換される。
+
+
+    * 媒質 1 と 2 の抵抗の大きさを ${R_1, R_2}、静電容量を ${C_1, C_2} とし、
+      それらの合成抵抗の大きさと合成静電容量を ${R_0, C_0} とおくと、
+      \align(${
+      | R_1 |= \frac{1}{4\pi\sigma_1} \frac{r_0 - a}{a r_0},
+      | R_2 |= \frac{1}{4\pi\sigma_2} \frac{b - r_0}{r_0 b},
+      | C_1 |= 4\pi\p{\e0 + \varepsilon_1} \frac{ a r_0 }{ r_0 - a },
+      | C_2 |= 4\pi\p{\e0 + \varepsilon_2} \frac{ r_0 b }{ b - r_0 }
+      |});
+      であるから、
+      \align(${
+      | R_0 |= \frac{1}{4\pi r_0} \p{
+          \frac{r_0 - a}{\sigma_1 a} + \frac{b - r_0}{\sigma_2 b}
+        },
+      | C_0 |= \frac{4\pi r_0}{
+            \frac{r_0-a}{\p{\e0 + \varepsilon_1}a} + \frac{b-r_0}{\p{\e0 + \varepsilon_2}b}
+          }.
+      |});
+      媒質1に蓄積された電荷の大きさを ${Q} とすれば、
+      \align(${
+      | Q
+        |= I R_0 C_0
+      | |=
+          \frac{
+            \frac{r_0 - a}{\sigma_1 a} + \frac{b - r_0}{\sigma_2 b}
+          }{
+            \frac{r_0-a}{\p{\e0 + \varepsilon_1}a} + \frac{b-r_0}{\p{\e0 + \varepsilon_2}b}
+          } I
+      |});
+      よって、求める電荷の面密度は、それぞれ
+      \alignat(2)(${
+      || \answer{
+            \frac{
+              \frac{r_0 - a}{\sigma_1 a} + \frac{b - r_0}{\sigma_2 b}
+            }{
+              \frac{r_0-a}{\p{\e0 + \varepsilon_1}a} + \frac{b-r_0}{\p{\e0 + \varepsilon_2}b}
+            } \frac{I}{4\pi a^2}
+          },
+      || \answer{
+            -\frac{
+              \frac{r_0 - a}{\sigma_1 a} + \frac{b - r_0}{\sigma_2 b}
+            }{
+              \frac{r_0-a}{\p{\e0 + \varepsilon_1}a} + \frac{b-r_0}{\p{\e0 + \varepsilon_2}b}
+            } \frac{I}{4\pi b^2}
+          }.
+      |});
+  }
+>

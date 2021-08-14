@@ -1,7 +1,9 @@
 @import: ../../packages/stdjareport
 @import: physics1-problem1
+@import: physics1-problem2
 
 document '<
   +physics1;
   +physics1-problem1;
+  +physics1-problem2;
 >
