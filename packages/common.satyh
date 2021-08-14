@@ -1,5 +1,10 @@
 @require: hdecoset
 @require: vdecoset
+@require: azmath/azmath
+% TODO: import this package breaks enumitem
+% @require: base/list-ext
+@require: base/fn
+@require: enumitem/enumitem
 @require: figbox/figbox
 @require: uline/uline
 @import: stdjareport
@@ -48,6 +53,43 @@ let-block ctx +problem a =
       section-heading ctx ib
   in
     bb-title
+
+let-block ctx +physics-heading x =
+  let it = {物理学#x;} in
+  let p = 2pt in
+  let pads = (p, p, p, p) in
+  let decos = HDecoSet.simple-frame-stroke 1pt (Color.black) in
+  let ib = 
+    let ctx = StdJaReport.make-chapter-title ctx in
+      inline-frame-breakable pads decos (read-inline ctx it)
+  in
+  let ctx = ctx
+    |> set-paragraph-margin 30pt 18pt
+  in
+  line-break true false ctx (ib ++ inline-fil)
+let-block +physics1 = '<+physics-heading{I}>
+let-block +physics2 = '<+physics-heading{II}>
+
+let intersperse s xs =
+  match xs with
+  | [] -> []
+  | (x :: xs) ->
+    x :: List.concat (xs |> List.map (fun x -> [s; x]))
+
+let bracket-nested idx ctx =
+  let idx-str = idx
+    |> List.map arabic
+    |> intersperse `.`
+    |> List.fold-left (Fn.flip (^)) ` `
+    |> embed-string
+  in
+  read-inline ctx {[#idx-str;]\ }
+
+let-block +enumerate x = '<
+  +enumerate?:(
+    Enumitem.(change-by-depth [bracket-arabic; bracket-nested])
+  )(x);
+>
 
 let-inline \peqref x = {問題文中式(#x;)}
 let-inline \eqref x = {式 (\ref(`eq:` ^ x);)}

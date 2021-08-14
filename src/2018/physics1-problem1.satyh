@@ -1,0 +1,5 @@
+@import: ../../packages/common
+
+let-block +physics1-problem1 = '<
+  +problem{1}
+>
