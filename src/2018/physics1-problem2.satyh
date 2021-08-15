@@ -112,50 +112,25 @@ let-block +physics1-problem2 = '<
           すなわち、この過程において蓄積されたすべての静電エネルギーがジュール熱に変換される。
 
 
-    * 媒質 1 と 2 の抵抗の大きさを ${R_1, R_2}、静電容量を ${C_1, C_2} とし、
-      それらの合成抵抗の大きさと合成静電容量を ${R_0, C_0} とおくと、
+    * 電流 ${I} が流れていることから、電流密度は
+      \gather(${
+      | \app{j}{r} = \frac{I}{4\pi r^2}.
+      |});
+      したがって、電場の大きさは
+      \gather(${
+      | \app{E}{r} = \cases{
+        | \frac{\app{j}{r}}{\sigma_1} = \frac{I}{4\pi\sigma_1 r^2} | \p{a < r < r_0}\ 
+        | \frac{\app{j}{r}}{\sigma_2} = \frac{I}{4\pi\sigma_2 r^2} | \p{r_0 < r < b}.
+        |}
+      |});
+      ガウスの法則から、境界に溜まっている電荷の大きさは
       \align(${
-      | R_1 |= \frac{1}{4\pi\sigma_1} \frac{r_0 - a}{a r_0},
-      | R_2 |= \frac{1}{4\pi\sigma_2} \frac{b - r_0}{r_0 b},
-      | C_1 |= 4\pi\varepsilon_1 \frac{ a r_0 }{ r_0 - a },
-      | C_2 |= 4\pi\varepsilon_2 \frac{ r_0 b }{ b - r_0 }
+      | \varepsilon_2 \cdot 4\pi b^2 \app{E}{b} - \varepsilon_1 \cdot 4\pi a^2 \app{E}{a}
+        |= \frac{\varepsilon_2}{\sigma_2} I - \frac{\varepsilon_1}{\sigma_1} I.
       |});
-      であるから、
-      \align(${
-      | R_0 |= \frac{1}{4\pi r_0} \p{
-          \frac{r_0 - a}{\sigma_1 a} + \frac{b - r_0}{\sigma_2 b}
-        },
-      | C_0 |= \frac{4\pi r_0}{
-            \frac{r_0-a}{\varepsilon_1 a} + \frac{b-r_0}{\varepsilon_2 b}
-          }.
-      |});
-      媒質1に蓄積された電荷の大きさを ${Q} とすれば、
-      \align(${
-      | Q
-        |= I R_0 C_0
-      | |=
-          \frac{
-            \frac{r_0 - a}{\sigma_1 a} + \frac{b - r_0}{\sigma_2 b}
-          }{
-            \frac{r_0-a}{\varepsilon_1 a} + \frac{b-r_0}{\varepsilon_2 b}
-          } I
-      |});
-      よって、求める電荷の面密度は、それぞれ
-      \alignat(2)(${
-      || \answer{
-            \frac{
-              \frac{r_0 - a}{\sigma_1 a} + \frac{b - r_0}{\sigma_2 b}
-            }{
-              \frac{r_0-a}{\varepsilon_1 a} + \frac{b-r_0}{\varepsilon_2 b}
-            } \frac{I}{4\pi a^2}
-          },
-      || \answer{
-            -\frac{
-              \frac{r_0 - a}{\sigma_1 a} + \frac{b - r_0}{\sigma_2 b}
-            }{
-              \frac{r_0-a}{\varepsilon_1 a} + \frac{b-r_0}{\varepsilon_2 b}
-            } \frac{I}{4\pi b^2}
-          }.
-      |});
+      したがって、求める面密度は
+      ${\answer{
+        \frac{I}{4\pi r_0^2} \p{\frac{\varepsilon_2}{\sigma_2} - \frac{\varepsilon_1}{\sigma_1}}
+      }}。
   }
 >
