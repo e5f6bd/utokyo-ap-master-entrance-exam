@@ -105,7 +105,7 @@ let-block +physics1-problem2 = '<
             = \answer{
                 \frac{Q_0^2}{8\pi\eps} \p{\frac{1}{a} - \frac{1}{b}}
                 \pB{ 1 - \app{\exp}{-\frac{2\sigma}{\eps} t} }
-              }
+              }.
           |});
 
       **  ${\app{W}{t}} は ${t\to\infty} で \eqref(`1213j`); の静電エネルギーに一致する。
