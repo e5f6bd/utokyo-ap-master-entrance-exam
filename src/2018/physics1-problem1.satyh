@@ -3,6 +3,7 @@
 let-math \c1 = ${\mathrm{c1}}
 let-math \c2 = ${\mathrm{c2}}
 let-math \c3 = ${\mathrm{c3}}
+let-math \s = ${\mathrm{s}}
 
 let-block +physics1-problem1 = '<
   +problem{1}
@@ -59,23 +60,23 @@ let-block +physics1-problem1 = '<
 
     * **  ${z} 軸から反時計回りに計った、撃力が与えられた場所の偏角を ${\phi} とおき、
           撃力が時間 ${\Delta t} の間に与えられ、
-          結果的に球の重心の速さが ${v}、角速度が ${\omega} になったとすれば、
+          結果的に球の重心の速さが ${v_\s}、角速度が ${\omega_\s} になったとすれば、
           力のモーメントに関する運動方程式から、
           \gather(${
-          | I\adot{\omega} = \frac{P}{\Delta t} \cos\phi \cdot r
+          | I\adot{\omega}_\s = \frac{P}{\Delta t} \cos\phi \cdot r
           |});
-          これと運動量保存則 ${P = mv} 、[2.2] で得た ${\omega = \frac{v}{r}} から、
-          ${\cos\phi = \frac{5}{2}}。したがって ${h = \answer{\frac{7}{5}r}}。
+          これと運動量保存則 ${P = mv_\s} 、[2.2] で得た ${\omega_\s = \frac{v_\s}{r}} から、
+          ${\cos\phi = \frac{2}{5}}。したがって ${h = \answer{\frac{7}{5}r}}。
 
       **  エネルギー保存則
           \gather(${
-          | mg\p{R + r} + \frac{P^2}{2m}
+          | mg\p{R + r} + \frac{1}{2} mv_\s^2 + \frac{1}{2}I\omega_\s^2
               = mg\p{R + r}\cos\theta + \frac{1}{2} mv^2 + \frac{1}{2}I\omega^2
           |});
           および球が離れるときの遠心力と重力のつりあい（\eqref(`1122`);の${\c2}を${\c3}にしたもの）
           を連立させれば、
           ${
-            \cos \theta_\c3 = \answer{ \frac{1}{17} \p{ 10 - \frac{5P^2}{m^2 g \p{R + r}} } }
+            \cos \theta_\c3 = \answer{ \frac{1}{17} \p{ 10 + \frac{7P^2}{m^2 g \p{R + r}} } }
           }。
   }
 >
