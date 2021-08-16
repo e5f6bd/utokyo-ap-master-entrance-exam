@@ -1,0 +1,91 @@
+@import: ../../packages/common
+
+let-math \e0 = ${\varepsilon_0}
+
+let-block +physics1-problem2 = '<
+  +problem{2}
+
+  +enumerate {
+    * \gather(${
+      | \app{\phi}{P}
+        = \frac{1}{4\pi\e0} \cdot \frac{+q}{r_+}
+          + \frac{1}{4\pi\e0} \cdot \frac{-q}{r_-}
+        = \answer{ \frac{1}{4\pi\e0} \p{ \frac{1}{r_+} - \frac{1}{r_-} } }.
+      |});
+
+    * 1次のテイラー展開
+      \align(${
+      | r_\pm
+        |= \sqrt{\p{r \cos\theta \mp \frac{d}{2}}^2 + \p{r \sin\theta}^2}
+      | |\simeq r \sqrt{1 \mp \frac{d}{r} \cos\theta}
+      | |\simeq r \p{1 \mp \frac{d}{2r} \cos\theta}
+      |});
+      を用いれば、
+      ${\app{\phi}{P} \simeq \answer{ \frac{q}{4\pi\e0} \cdot \frac{d}{r^2} \cos\theta }}。
+
+    * \align(${
+      | \app{\bm{E}}{r, \theta}
+        |= -\nabla \phi
+      | |= -\pdv{\phi}{r} \bm{e}_r
+            - \frac{1}{r} \pdv{\phi}{\theta} \bm{e}_\theta
+            - \frac{1}{r\sin\theta} \pdv{\phi}{\phi} \bm{e}_\phi
+      | |= \frac{q}{4\pi\e0} \frac{2d}{r^2} \cos\theta \cdot \bm{e}_r
+            + \frac{1}{r} \frac{q}{4\pi\e0} \frac{d}{r^2} \sin\theta \cdot \bm{e}_\theta
+      | |= \frac{qd}{4\pi\e0 r^3}
+            \p{2\cos\theta \cdot \bm{e}_r + \sin\theta \cdot \bm{e}_\theta}.
+      |});
+      これと ${qd = p} より従う。
+
+    * ${\theta_1 = \pi/2} なる電気双極子 ${\bm{p}_1} が
+      ${\bm{p}_2} の位置でつくる電場は、
+      問題文中図2 における下方向である。
+      したがって、
+      \listing-from-block<
+        +Enumitem.enumerate?:(Enumitem.(change-by-depth [paren-alph])){
+          * ${\theta_2 = 0} のとき、
+            右側の正電荷に下向きの、左側の負電荷に上向きの力がかかり、
+            電気双極子は\answer-i{時計回りに回り始める}。
+
+          * ${\theta_2 = -\pi/2} のとき、
+            上側の負電荷に上向きの、下側の正電荷に下向きの力がかかり、
+            電気双極子は\answer-i{回転しない}。
+        }
+      >
+
+    * ${\bm{p_1}} と平行に ${\bm{e}_r}、それと垂直に ${\bm{e}_\theta} をとれば、
+      \peqref{1} より
+      \align(${
+      | \bm{p}_2 |= \bm{e}_r \app{\cos}{\theta_1 - \theta_2}
+                  + \bm{e}_\theta \app{\sin}{\theta_1 - \theta_2},
+      | \bm{E}_1 |= \bm{e}_\theta 2\app{\cos}{\theta_1 - \theta_2}
+                  + \bm{e}_\theta \app{\sin}{\theta_1 - \theta_2}.
+      |});
+      したがって、
+      \gather(${
+      | U 
+        = -\bm{p}_2 \cdot \bm{E}_1
+        = \answer{
+            -\frac{p_1 p_2}{4\pi\e0 l^3} \p{ \app{\cos^2}{\theta_1 - \theta_2} + 1 }
+          }.
+      |});
+
+    * 最も安定なのは、${U} が最小のとき、
+      すなわち ${\app{\cos}{\theta_1 - \theta_2} = \pm 1} のとき、つまり
+      \answer-i{ ${\theta_1 = \theta_2} または ${\theta_1 = \theta_2 + \pi} のとき}。
+
+    * 鏡像法により、無限に広がる導体の代わりに
+      ${\bm{p}} の ${xy} 平面に対して鏡像の位置に同じ双極子があるとすれば、
+      これは [5] において ${\p{\theta_1, \theta_2} = \p{\alpha, -\alpha}} としたときと
+      同等なので、
+      \gather(${
+      | U 
+        = \answer{
+            -\frac{p^2}{32\pi\e0 h^3} \p{ \cos^2 2\alpha + 1 }
+          }.
+      |});
+
+    * 最も安定なのは、${U} が最小のとき、
+      すなわち ${\cos 2\alpha = \pm 1} のとき、つまり
+      \answer-i{ ${\alpha = \frac{n}{2}\pi} (${n \in \mathbb{Z}}) のとき}。
+  }
+>
