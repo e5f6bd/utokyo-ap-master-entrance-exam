@@ -113,7 +113,7 @@ let-block +problem2 = '<
       |});
       したがって、${\mathrm{A} = \answer{\lambda + \mu}}。
 
-    * ${x_1} 方向に伝播する縦波平面波において、${\app{u_1}{\bm{x}, t} = 0}、
+    * ${x_1} 方向に伝播する横波平面波において、${\app{u_1}{\bm{x}, t} = 0}、
       ${\pdv{u_2}{x_2} = \pdv{u_2}{x_3} = \pdv{u_3}{x_2} = \pdv{u_3}{x_3} = 0} だから、
       \gather(${
       | \rho \pdv?:{2}{u_2}{t} = \mu \pdv?:{2}{u_2}{x_1}.
@@ -121,14 +121,14 @@ let-block +problem2 = '<
       したがって、位相速度は ${\answer{\sqrt{\frac{\mu}{\rho}}}}。
       \linebreak;
 
-      ${x_1} 方向に伝播する横波平面波において、
+      ${x_1} 方向に伝播する縦波平面波において、
       ${\app{u_2}{\bm{x}, t} = \app{u_3}{\bm{x}, t} = 0} だから、
       \gather(${
       | \rho \pdv?:{2}{u_1}{t}
         = \mu \pdv?:{2}{u_1}{x_1} + \p{\lambda + \mu} \pdv?:{2}{u_1}{x_1}
-        = \p{2\lambda + \mu} \pdv?:{2}{u_1}{x_1}.
+        = \p{\lambda + 2\mu} \pdv?:{2}{u_1}{x_1}.
       |});
-      よって、位相速度は ${\answer{\sqrt{\frac{2\lambda+\mu}{\rho}}}}。
+      よって、位相速度は ${\answer{\sqrt{\frac{\lambda+2\mu}{\rho}}}}。
 
     * ${x_3} 方向の変位が ${0} で ${x_3} 方向に等方的であるという条件から、
       ${x_1}-${x_2} 平面内のみを考える。

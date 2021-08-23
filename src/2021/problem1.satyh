@@ -2,7 +2,6 @@
 @require: base/list-ext
 @require: zrbase/zlist0
 @import: ../../packages/common
-@import: common
 
 let-math \H = ${\hat{H}}
 let-math \h-power = ${\frac{i\H\p{t-t_0}}{\hbar}}
