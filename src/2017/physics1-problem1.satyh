@@ -16,52 +16,53 @@ let-block +physics1-problem1 = '<
 
       **  ${\vb > 0} のもとで、
           \gather(${
-          | m\ab = k v_0 \p{t_0 + t} - k\xb - \frac{2\mu}{3} mg
+          | m\ab = k v_0 \p{t_0 + t} - k\xb - k\xb - \frac{2\mu}{3} mg
           | \therefore
-            \answer{ m\ab = - k \xb + k v_0 t + \frac{\mu mg}{3} }.
+            \answer{ m\ab = - 2k \xb + k v_0 t + \frac{\mu mg}{3} }.
             \label!(`1112eq`)
           |});
 
       **  斉次方程式 ${m\ab = -k\ab} の一般解は、定数 ${C_1, C_2} を用いて
           \gather(${
-          | \xb = C_1 \cos \sqrt{\frac{k}{m}} t + C_2 \sin \sqrt{\frac{k}{m}} t.
+          | \xb = C_1 \cos \sqrt{\frac{2k}{m}} t + C_2 \sin \sqrt{\frac{2k}{m}} t.
           |});
           一方、特解として ${\xb = at + b} を仮定し、\eqref(`1112eq`); に代入すると、
           \align(${
           | 0
-            |= - k\p{at + b} + kv_0 t + \frac{\mu mg}{3}
-          | |= \p{- ka + kv_0} t + \p{- kb + \frac{\mu mg}{3} }.
+            |= - 2k\p{at + b} + kv_0 t + \frac{\mu mg}{3}
+          | |= \p{- 2ka + kv_0} t + \p{- 2kb + \frac{\mu mg}{3} }.
           |});
           したがって、\eqref(`1112eq`); の一般解は
           \gather(${
-          | \xb = C_1 \cos \sqrt{\frac{k}{m}} t + C_2 \sin \sqrt{\frac{k}{m}} t
-                    + v_0 t + \frac{\mu mg}{3k}.
+          | \xb = C_1 \cos \sqrt{\frac{2k}{m}} t + C_2 \sin \sqrt{\frac{2k}{m}} t
+                    + \frac{1}{2} v_0 t + \frac{\mu mg}{6k}.
           |});
           いま、${\app{\xb}{0} = 0}、${\app{\ab}{0} = 0} から、
           \alignat(2)(${
-          | C_1 + \frac{\mu mg}{3k} |= 0,
-          | \sqrt{\frac{k}{m}} C_2 + v_0 |= 0.
+          | C_1 + \frac{\mu mg}{6k} |= 0,
+          | \sqrt{\frac{2k}{m}} C_2 + \frac{1}{2} v_0 |= 0.
           |});
           以上より、
           \align(${
           | \app{\xb}{t}
-            |= -\frac{\mu mg}{3k} \cos \sqrt{\frac{k}{m}} t
-                -v_0 \sqrt{\frac{m}{k}} \sin \sqrt{\frac{k}{m}} t
-                    + v_0 t + \frac{\mu mg}{3k}
+            |= -\frac{\mu mg}{6k} \cos \sqrt{\frac{2k}{m}} t
+                -\frac{v_0}{2} \sqrt{\frac{m}{2k}} \sin \sqrt{\frac{2k}{m}} t
+                    + \frac{1}{2} v_0 t + \frac{\mu mg}{6k}
           | |= \answer{
-                \frac{\mu mg}{3k} \p{1 - \cos \sqrt{\frac{k}{m}} t}
-                -v_0 \sqrt{\frac{m}{k}} \sin \sqrt{\frac{k}{m}} t
-                      + v_0 t
+                \frac{\mu mg}{6k} \p{1 - \cos \sqrt{\frac{2k}{m}} t}
+                -\frac{v_0}{2} \sqrt{\frac{m}{2k}} \sin \sqrt{\frac{2k}{m}} t
+                      + \frac{1}{2} v_0 t
               }.
           |});
 
-      **  ${\sqrt{\frac{k}{m}}t_0} の ${3} 次まで展開して、
-          ${\cos \sqrt{\frac{k}{m}}t_0 \simeq 1 - \frac{k t_0^2}{2m}}、
-          ${\sin \sqrt{\frac{k}{m}}t_0 \simeq \sqrt{\frac{k}{m}} t_0} とすれば、
+      **  ${\sqrt{\frac{2k}{m}}t_0} の ${2} 次まで展開して、
+          ${\cos \sqrt{\frac{2k}{m}}t_0 \simeq 1 - \frac{k t_0^2}{m}}、
+          ${\sin \sqrt{\frac{2k}{m}}t_0 \simeq \sqrt{\frac{2k}{m}} t_0} とすれば、
           \align(${
           | \app{\xb}{t_0}
-            |= \frac{\mu mg}{3k} \cdot \frac{kt_0^2}{2m}
-                  - v_0 \sqrt{\frac{m}{k}} \sqrt{\frac{k}{m}} t_0 + v_0 t_0
+            |= \frac{\mu mg}{6k} \cdot \frac{kt_0^2}{m}
+                  - \frac{v_0}{2} \sqrt{\frac{m}{2k}} \sqrt{\frac{2k}{m}} t_0
+                  + \frac{1}{2} v_0 t_0
           | |= \frac{\mu mg}{k} \cdot \frac{k \mu^2 m g^2}{6 k^2 v_0^2}
           |});
           物体 A が ${t = t_0} までに動き始める条件は、
