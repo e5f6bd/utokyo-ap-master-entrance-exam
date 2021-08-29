@@ -6,5 +6,5 @@
 document '<
   +physics1;
   +physics1-problem1;
-  % +physics1-problem2;
+  +physics1-problem2;
 >
